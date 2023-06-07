@@ -35,6 +35,8 @@ Gui, Show, w381 h341, OCR Clicker
 OutputVarXX =  0
 OutputVarYY = 0
 PrevLine = ""
+First := 1
+Clipboard = Press Start
 Loop{
 	CoordMode, Mouse, Screen
     MouseGetPos , OutputVarXXX, OutputVarYYY
@@ -42,12 +44,12 @@ Loop{
 	{
 		OutputVarXX := OutputVarXXX
 		OutputVarYY := OutputVarYYY
-		Gui, Add, Text, x193 y89 w40 h20 , %OutputVarXX%	
-		Gui, Add, Text, x193 y129 w40 h20 , %OutputVarYY%
+		Gui, Add, Text, x193 y92 w40 h20 , %OutputVarXX%	
+		Gui, Add, Text, x193 y132 w40 h20 , %OutputVarYY%
 	}
 	LastLine = %Clipboard%
 	if (LastLine != PrevLine){
-		if (LastLine != NULL){			
+		if (LastLine != ""){			
 			Gui, Add, Text, x23 y318 w250 h20 +Left, %LastLine%
 			PrevLine := LastLine
 		}
@@ -56,7 +58,6 @@ Loop{
 			Gui, Add, Text, x23 y318 w250 h20 +Left, %PrevLine%
 		}
 	}	
-	
 	
 	Sleep, 150
 	
