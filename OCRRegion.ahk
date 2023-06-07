@@ -4,7 +4,7 @@
 SetWorkingDir %A_ScriptDir%
 SendMode Input
 CoordMode, Mouse, Screen
-
+Clipboard := ""
 X = %1%
 
 if(X == "kill")
@@ -43,9 +43,9 @@ OCR(x,y,w,h)
 
 Loop
 {
+	Clipboard := ""
     CoordMode, Pixel, Screen
-    CoordMode, ToolTip, Screen
-	clipboard := ""  ; Clear the clipboard variable		
+    CoordMode, ToolTip, Screen	
 	ToolTip, Reading, %W%, %H%, 1
 	
     if (ErrorLevel == 0)
