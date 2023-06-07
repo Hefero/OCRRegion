@@ -119,11 +119,7 @@ DoDraw:
 			GetKeyState, MousePressed, LButton
 			if (MousePressed = "D")
 			{					
-				MouseGetPos , CurrX, CurrY				
-				Gui, Square:Default
-				Gui ,Color, Blue
-				Gui +LastFound
-				Gui, +AlwaysOnTop -Caption +ToolWindow				
+				MouseGetPos , CurrX, CurrY			
 				if (CurrX < FirstX)
 				{
 					CurrWidth := FirstX - CurrX					
@@ -142,14 +138,19 @@ DoDraw:
 				{
 					CurrHeight := CurrY - FirstY
 				}
+				
+				Gui, Square:Default
+				Gui ,Color, Blue
+				Gui +LastFound
+				Gui, +AlwaysOnTop -Caption +ToolWindow	
 				Gui, Square:Show, x%FirstX% y%FirstY% w%CurrWidth% h%CurrHeight%, Test2
 				WinSet, Transparent, 100, Test2
 			}
 			else
 			{				
-				Gui, Square:Hide
-				Gui, OCRClicker:Default
+				Gui, Square:Hide				
 				Gui, OCRClicker:Show
+				Gui, OCRClicker:Default
 				GuiControl,, x, %FirstX%
 				GuiControl,, y, %FirstY%
 				GuiControl,, width, %CurrWidth%
