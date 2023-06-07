@@ -111,9 +111,9 @@ return
 DoDraw:	
 	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
 	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID		
-	KeyWait, LButton, D
-		Gui, OCRClicker:Show
+	KeyWait, LButton, D		
 		MouseGetPos , FirstX, FirstY
+		Gui, OCRClicker:Show
 		Loop
 		{			
 			GetKeyState, MousePressed, LButton
