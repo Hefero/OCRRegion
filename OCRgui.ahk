@@ -112,12 +112,13 @@ DoDraw:
 	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
 	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID		
 	KeyWait, LButton, D
-		MouseGetPos , FirstX, FirstY		
+		Gui, OCRClicker:Show
+		MouseGetPos , FirstX, FirstY
 		Loop
-		{	
+		{			
 			GetKeyState, MousePressed, LButton
 			if (MousePressed = "D")
-			{				
+			{					
 				MouseGetPos , CurrX, CurrY				
 				Gui, Square:Default
 				Gui ,Color, Blue
@@ -146,12 +147,13 @@ DoDraw:
 			}
 			else
 			{				
-				Gui, Square:Hide	
+				Gui, Square:Hide
 				Gui, OCRClicker:Default
+				Gui, OCRClicker:Show
 				GuiControl,, x, %FirstX%
 				GuiControl,, y, %FirstY%
 				GuiControl,, width, %CurrWidth%
-				GuiControl,, height, %CurrHeight%
+				GuiControl,, height, %CurrHeight%				
 				return
 			}		
 		}
