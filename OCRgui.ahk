@@ -53,16 +53,11 @@ Loop{
 		GuiControl,, Xcurr, %OutputVarXX%
 		GuiControl,, Ycurr, %OutputVarYY%
 	}
-	LastLine := Clipboard
-	if (LastLine != PrevLine){
+	if (Clipboard != PrevLine){
 		Gui, OCRClicker:Default
-		if (LastLine != ""){			
-			GuiControl,, OCRRead, %LastLine%
-			PrevLine := LastLine
-		}
-		else 
-		{			
-			GuiControl,, OCRRead, %PrevLine%
+		if (Clipboard != ""){			
+			GuiControl,, OCRRead, %Clipboard%
+			PrevLine := Clipboard
 		}
 	}
 }
