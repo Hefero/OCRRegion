@@ -12,7 +12,12 @@ OutputVarXX =  0
 OutputVarYY = 0
 PrevLine = ""
 First := 1
+Show := 0
 Loop{
+	if (Show = 1)
+	{
+		Gui, OCRClicker:Show
+	}
 	CoordMode, Mouse, Screen
     MouseGetPos , OutputVarXXX, OutputVarYYY
 	if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
@@ -46,6 +51,7 @@ return
 
 
 DoStart:
+	Show := 1
 	;ListVars
 	Gui, OCRClicker:Submit, NoHide
 	Gosub, IniWriter
@@ -54,7 +60,8 @@ DoStart:
 	Run, %StringRun%, %A_ScriptDir%, Hide, ocrAHKPID
 return
 
-DoStop:	
+DoStop:
+	Show := 0
 	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
 	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID
 	;for debugging remove comments:
@@ -62,7 +69,7 @@ DoStop:
 	;Pause
 return
 
-DoDraw:	
+DoDraw:
 	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
 	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID		
 	KeyWait, LButton, D		
