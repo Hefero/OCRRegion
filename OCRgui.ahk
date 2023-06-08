@@ -147,6 +147,18 @@ DoDraw:
 				Gui, Square:Color, Blue
 				Gui, Square:+AlwaysOnTop -Caption +ToolWindow	
 				Gui, Square:Show, x%DisplayX% y%DisplayY% w%CurrWidth% h%CurrHeight%, Test2
+				    MouseGetPos , OutputVarXXX, OutputVarYYY
+					if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
+					{
+						OutputVarXX := OutputVarXXX
+						OutputVarYY := OutputVarYYY
+						Gui, OCRClicker:Default
+						GuiControl,, Xcurr, %OutputVarXX%
+						GuiControl,, Ycurr, %OutputVarYY%
+					}
+				
+				
+				
 				WinSet, Transparent, 100, Test2
 				
 			}
