@@ -53,7 +53,7 @@ Loop{
 		GuiControl,, Xcurr, %OutputVarXX%
 		GuiControl,, Ycurr, %OutputVarYY%
 	}
-	LastLine = %Clipboard%
+	LastLine := Clipboard
 	if (LastLine != PrevLine){
 		Gui, OCRClicker:Default
 		if (LastLine != ""){			
@@ -64,8 +64,7 @@ Loop{
 		{			
 			GuiControl,, OCRRead, %PrevLine%
 		}
-	}	
-	Sleep, 150	
+	}
 }
 
 
