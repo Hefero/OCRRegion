@@ -22,7 +22,7 @@ Gui, OCRClicker:Add, Text, x32 y129 w70 h20, Y
 Gui, OCRClicker:Add, Text, x193 y92 w40 h20 vXcurr , X
 Gui, OCRClicker:Add, Text, x193 y132 w40 h20 vYcurr , Y
 Gui, OCRClicker:Add, Text, x32 y171 w70 h20 , Width
-Gui, OCRClicker:Add, Text, x32 y2 w70 h20 , Height
+Gui, OCRClicker:Add, Text, x32 y211 w70 h20 , Height
 Gui, OCRClicker:Add, Edit, x112 y249 w110 h20 vTextRead , %TextRead%
 Gui, OCRClicker:Add, Text, x32 y249 w70 h20 , TextRead
 Gui, OCRClicker:Add, Button, x242 y239 w100 h30 gDoStart , Start
