@@ -56,7 +56,7 @@ Loop{
 	if (LastLine != PrevLine){
 		Gui, OCRClicker:Default
 		if (LastLine != ""){			
-			;GuiControl,, OCRRead, %LastLine%
+			GuiControl,, OCRRead, %LastLine%
 			PrevLine := LastLine
 		}
 		else 
