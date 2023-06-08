@@ -32,7 +32,7 @@ Gui, OCRClicker:Add, Button, x242 y79 w100 h30 gDoDraw , Draw
 Gui, OCRClicker:Add, Text, x32 y49 w70 h20 +Left, Parameter
 Gui, OCRClicker:Add, Text, x112 y49 w60 h20 +Left, Value
 Gui, OCRClicker:Add, Text, x282 y318 w260 h20 +Left, Press F12 to stop
-Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRed, Press Start
+Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRRead, Press Start
 Gui, OCRClicker:Show, w381 h341, OCRClicker
 ; Generated using SmartGUI Creator for SciTE
 
@@ -54,18 +54,17 @@ Loop{
 	}
 	LastLine = %Clipboard%
 	if (LastLine != PrevLine){
+		Gui, OCRClicker:Default
 		if (LastLine != ""){			
-			Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left, %LastLine%
+			;GuiControl,, OCRRead, %LastLine%
 			PrevLine := LastLine
 		}
 		else 
 		{			
-			Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left, %PrevLine%
+			GuiControl,, OCRRead, %PrevLine%
 		}
 	}	
-	
-	Sleep, 150
-	
+	Sleep, 150	
 }
 
 
