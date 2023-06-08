@@ -43,15 +43,17 @@ Loop
     {   
         ; Perform actions based on the recognized text
 		OCRTextRegion := OCR(X,Y,Width,Height)
-		IfInString, OCRTextRegion, %TextRead%
-		{
-			; Take action if the desired text is found
-			; Replace "TextToSearch" with the text you want to search for						
-			CancelSquare()
-			MouseGetPos, OutputVarX, OutputVarY	
-			Gosub, ActionToPerform
-			MouseMove, OutputVarX, OutputVarY, 0			
-			DrawSquare(X,Y,Width,Height)
+		if (TextRead != ""){
+			IfInString, OCRTextRegion, %TextRead%
+			{
+				; Take action if the desired text is found
+				; Replace "TextToSearch" with the text you want to search for						
+				CancelSquare()
+				MouseGetPos, OutputVarX, OutputVarY	
+				Gosub, ActionToPerform
+				MouseMove, OutputVarX, OutputVarY, 0			
+				DrawSquare(X,Y,Width,Height)
+			}
 		}
 		
 		if (OCRTextRegion != PrevText)
