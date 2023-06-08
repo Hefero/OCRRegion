@@ -152,7 +152,26 @@ DoDraw:
 			}
 			
 			else
-				{				
+				{
+				MouseGetPos , CurrX, CurrY			
+				if (CurrX < FirstX)
+				{
+					CurrWidth := FirstX - CurrX					
+					DisplayX := CurrX
+				}
+				else
+				{
+					CurrWidth := CurrX - FirstX
+				}
+				if (CurrY < FirstY)
+				{					
+					CurrHeight := FirstY - CurrY					
+					DisplayY := CurrY
+				}
+				else
+				{
+					CurrHeight := CurrY - FirstY
+				}				
 					Gui, Square:Hide				
 					Gui, OCRClicker:Show
 					Gui, OCRClicker:Default
@@ -166,4 +185,3 @@ DoDraw:
 		}
 	;for debugging remove comments:
 return
-F12::ExitApp
