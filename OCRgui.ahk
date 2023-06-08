@@ -3,6 +3,7 @@
 #NoEnv
 SetWorkingDir %A_ScriptDir%
 SendMode Input
+Clipboard = Press Start
 
 IniRead, X, OCRsettings.ini, Settings, X
 IniRead, Y, OCRsettings.ini, Settings, Y
