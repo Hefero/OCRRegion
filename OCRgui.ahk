@@ -13,11 +13,28 @@ OutputVarYY = 0
 PrevLine = ""
 First := 1
 Show := 0
-Loop{
-	if (Show = 1)
+FocusView:=0
+
+Loop{	
+	GetKeyState, MousePressedOutside, LButton
+	if (MousePressedOutside = "D" & FocusView = 1)
 	{
-		Gui, OCRClicker:Show
+		Show := 0
 	}
+	
+	if (MousePressedOutside = "U")
+	{
+		if (FocusView = 1)
+		{
+			Show := 1
+			Gui, OCRClicker:Show
+		}
+		if (FocusView = 0)
+		{
+			Show := 0
+		}
+	}
+	
 	CoordMode, Mouse, Screen
     MouseGetPos , OutputVarXXX, OutputVarYYY
 	if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
@@ -51,6 +68,7 @@ return
 
 
 DoStart:
+	FocusView := 1
 	Show := 1
 	;ListVars
 	Gui, OCRClicker:Submit, NoHide
@@ -61,6 +79,7 @@ DoStart:
 return
 
 DoStop:
+	FocusView := 0
 	Show := 0
 	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
 	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID
