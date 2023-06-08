@@ -32,7 +32,7 @@ Gui, OCRClicker:Add, Button, x242 y119 w100 h30 gDoExit , Exit
 Gui, OCRClicker:Add, Button, x242 y79 w100 h30 gDoDraw , Draw
 Gui, OCRClicker:Add, Text, x32 y49 w70 h20 +Left, Parameter
 Gui, OCRClicker:Add, Text, x112 y49 w60 h20 +Left, Value
-Gui, OCRClicker:Add, Text, x282 y318 w260 h20 +Left, Press F12 to stop
+Gui, OCRClicker:Add, Text, x282 y318 w260 h20 +Left, Press F11 to stop
 Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRRead, Press Start
 Gui, OCRClicker:Show, w381 h341, OCRClicker
 ; Generated using SmartGUI Creator for SciTE
@@ -118,15 +118,18 @@ DoDraw:
 		MouseGetPos , FirstX, FirstY
 		Gui, OCRClicker:Show
 		Loop
-		{			
+		{
+		
+			DisplayX := FirstX
+			DisplayY := FirstY
 			GetKeyState, MousePressed, LButton
 			if (MousePressed = "D")
-			{					
+			{
 				MouseGetPos , CurrX, CurrY			
 				if (CurrX < FirstX)
 				{
 					CurrWidth := FirstX - CurrX					
-					FirstX := CurrX
+					DisplayX := CurrX
 				}
 				else
 				{
@@ -135,7 +138,7 @@ DoDraw:
 				if (CurrY < FirstY)
 				{					
 					CurrHeight := FirstY - CurrY					
-					FirstY := CurrY
+					DisplayY := CurrY
 				}
 				else
 				{
@@ -143,21 +146,24 @@ DoDraw:
 				}
 				Gui, Square:Color, Blue
 				Gui, Square:+AlwaysOnTop -Caption +ToolWindow	
-				Gui, Square:Show, x%FirstX% y%FirstY% w%CurrWidth% h%CurrHeight%, Test2
+				Gui, Square:Show, x%DisplayX% y%DisplayY% w%CurrWidth% h%CurrHeight%, Test2
 				WinSet, Transparent, 100, Test2
+				
 			}
+			
 			else
-			{				
-				Gui, Square:Hide				
-				Gui, OCRClicker:Show
-				Gui, OCRClicker:Default
-				GuiControl,, x, %FirstX%
-				GuiControl,, y, %FirstY%
-				GuiControl,, width, %CurrWidth%
-				GuiControl,, height, %CurrHeight%				
-				return
-			}		
+				{				
+					Gui, Square:Hide				
+					Gui, OCRClicker:Show
+					Gui, OCRClicker:Default
+					GuiControl,, x, %DisplayX%
+					GuiControl,, y, %DisplayY%
+					GuiControl,, width, %CurrWidth%
+					GuiControl,, height, %CurrHeight%				
+					return
+				}	
+				
 		}
 	;for debugging remove comments:
 return
-
+F12::ExitApp

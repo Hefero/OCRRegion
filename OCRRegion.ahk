@@ -76,6 +76,6 @@ Loop
     
 }
 
-F12::ExitApp
+F11::ExitApp
 
 
