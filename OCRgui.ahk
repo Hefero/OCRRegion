@@ -1,5 +1,5 @@
 ;#NoTrayIcon
-#singleinstance force
+#SingleInstance Off
 #NoEnv
 #include OCRRegion.ahk
 
