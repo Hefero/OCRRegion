@@ -34,27 +34,43 @@ H:= Y + Height
 ;Pause
 
 DrawSquare(X,Y,Width,Height)
+PrevText := ""
 Loop
 {
     CoordMode, Pixel, Screen
-    CoordMode, ToolTip, Screen	
-	ToolTip, Reading, %W%, %H%, 1	
+    CoordMode, ToolTip, Screen
     if (ErrorLevel == 0)
     {   
         ; Perform actions based on the recognized text
-		if(OCRRegion(X,Y,Width,Height,TextRead))
+		OCRTextRegion := OCR(X,Y,Width,Height)
+		IfInString, OCRTextRegion, %TextRead%
 		{
 			; Take action if the desired text is found
-			; Replace "TextToSearch" with the text you want to search for
-			ToolTip, %ocrText%, %W%, %H%, 1								
+			; Replace "TextToSearch" with the text you want to search for			
 			Gui, Square:Cancel			
 			MouseGetPos, OutputVarX, OutputVarY	
 			Gosub, ActionToPerform
 			MouseMove, OutputVarX, OutputVarY, 0			
-			DrawSquare(X,Y,Width,Height)
-				
+			DrawSquare(X,Y,Width,Height)				
 			Sleep, 1500
 		}
+		else
+		{
+		
+		}
+		
+		if (OCRTextRegion != PrevText){ ;shows tooltip case new
+		if (OCRTextRegion != 0){			
+			ToolTip, %OCRTextRegion%, %W%, %H%, 1			
+			PrevText := OCRTextRegion
+		}
+		else
+		{
+			ToolTip
+		}
+	}
+		
+		
     }	
 	Sleep, 1500
     ; Delay between OCR checks
@@ -68,7 +84,7 @@ OCRRegion(X,Y,Width,Height,TextRead){
 	; find textread on recognized text
 	IfInString, ocrText, %TextRead%
 	{
-		return true
+		return ocrText
 	}
 	else
 	{
@@ -87,8 +103,6 @@ DrawSquare(X,Y,Width,Height)
 ActionToPerform:
 	SendInput, {Click %X%, %Y%}
 return
-
-
 
 
 
