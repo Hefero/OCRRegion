@@ -110,9 +110,9 @@ DoDraw:
 				{
 					CurrHeight := CurrY - FirstY
 				}
-				Gui, Square:Color, Blue
-				Gui, Square:+AlwaysOnTop -Caption +ToolWindow	
-				Gui, Square:Show, x%DisplayX% y%DisplayY% w%CurrWidth% h%CurrHeight%, Test2
+				Gui, Square2:Color, Blue
+				Gui, Square2:+AlwaysOnTop -Caption +ToolWindow	
+				Gui, Square2:Show, x%DisplayX% y%DisplayY% w%CurrWidth% h%CurrHeight%, Test2
 				    MouseGetPos , OutputVarXXX, OutputVarYYY
 					if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
 					{
@@ -146,7 +146,7 @@ DoDraw:
 				{
 					CurrHeight := CurrY - FirstY
 				}				
-				Gui, Square:Hide				
+				Gui, Square2:Hide				
 				Gui, OCRClicker:Show
 				Gui, OCRClicker:Default
 				GuiControl,, x, %DisplayX%
