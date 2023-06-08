@@ -1,6 +1,6 @@
 #NoTrayIcon
 #singleinstance force
-#NoEnv
+;#NoEnv
 SetWorkingDir %A_ScriptDir%
 SendMode Input
 Clipboard = Press Start
@@ -62,20 +62,16 @@ Loop{
 	}
 }
 
-
-return
-
 DoExit:
 	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
 	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID 
-	GuiClose:
-ExitApp
+	ExitApp
+return
 
 DoReload:
 	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
-	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID
-	Run, %A_ScriptFullPath%
-	ExitApp
+	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID	
+	Reload
 return
 
 
@@ -98,11 +94,6 @@ DoStop:
 	;for debugging remove comments:
 	;ListVars
 	;Pause
-return
-
-F11::
-MsgBox, a
-	MouseGetPos , X, Y
 return
 
 DoDraw:	
