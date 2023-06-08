@@ -16,10 +16,12 @@ Gui, OCRClicker:Add, Edit, x112 y89 w60 h20 vx , %x%
 Gui, OCRClicker:Add, Edit, x112 y129 w60 h20 vy , %y%
 Gui, OCRClicker:Add, Edit, x112 y169 w60 h20 vWidth , %width%
 Gui, OCRClicker:Add, Edit, x112 y209 w60 h20 vHeight , %height%
-Gui, OCRClicker:Add, Text, x32 y89 w70 h20 , X
-Gui, OCRClicker:Add, Text, x32 y129 w70 h20 , Y
-Gui, OCRClicker:Add, Text, x32 y169 w70 h20 , Width
-Gui, OCRClicker:Add, Text, x32 y209 w70 h20 , Height
+Gui, OCRClicker:Add, Text, x32 y89 w70 h20, X
+Gui, OCRClicker:Add, Text, x32 y129 w70 h20, Y
+Gui, OCRClicker:Add, Text, x193 y92 w40 h20 vXcurr , X
+Gui, OCRClicker:Add, Text, x193 y132 w40 h20 vYcurr , Y
+Gui, OCRClicker:Add, Text, x32 y171 w70 h20 , Width
+Gui, OCRClicker:Add, Text, x32 y2 w70 h20 , Height
 Gui, OCRClicker:Add, Edit, x112 y249 w110 h20 vTextRead , %TextRead%
 Gui, OCRClicker:Add, Text, x32 y249 w70 h20 , TextRead
 Gui, OCRClicker:Add, Button, x242 y239 w100 h30 gDoStart , Start
@@ -30,6 +32,7 @@ Gui, OCRClicker:Add, Button, x242 y79 w100 h30 gDoDraw , Draw
 Gui, OCRClicker:Add, Text, x32 y49 w70 h20 +Left, Parameter
 Gui, OCRClicker:Add, Text, x112 y49 w60 h20 +Left, Value
 Gui, OCRClicker:Add, Text, x282 y318 w260 h20 +Left, Press F12 to stop
+Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRed, Press Start
 Gui, OCRClicker:Show, w381 h341, OCRClicker
 ; Generated using SmartGUI Creator for SciTE
 
@@ -38,7 +41,6 @@ OutputVarXX =  0
 OutputVarYY = 0
 PrevLine = ""
 First := 1
-Clipboard = Press Start
 Loop{
 	CoordMode, Mouse, Screen
     MouseGetPos , OutputVarXXX, OutputVarYYY
@@ -46,8 +48,9 @@ Loop{
 	{
 		OutputVarXX := OutputVarXXX
 		OutputVarYY := OutputVarYYY
-		Gui, OCRClicker:Add, Text, x193 y92 w40 h20 , %OutputVarXX%	
-		Gui, OCRClicker:Add, Text, x193 y132 w40 h20 , %OutputVarYY%
+		Gui, OCRClicker:Default
+		GuiControl,, Xcurr, %OutputVarXX%
+		GuiControl,, Ycurr, %OutputVarYY%
 	}
 	LastLine = %Clipboard%
 	if (LastLine != PrevLine){
@@ -138,11 +141,8 @@ DoDraw:
 				{
 					CurrHeight := CurrY - FirstY
 				}
-				
-				Gui, Square:Default
-				Gui ,Color, Blue
-				Gui +LastFound
-				Gui, +AlwaysOnTop -Caption +ToolWindow	
+				Gui, Square:Color, Blue
+				Gui, Square:+AlwaysOnTop -Caption +ToolWindow	
 				Gui, Square:Show, x%FirstX% y%FirstY% w%CurrWidth% h%CurrHeight%, Test2
 				WinSet, Transparent, 100, Test2
 			}
