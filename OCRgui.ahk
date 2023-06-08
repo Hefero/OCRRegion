@@ -1,15 +1,19 @@
 ;#NoTrayIcon
 #singleinstance force
 #NoEnv
+#include OCRRegion.ahk
+
 SetWorkingDir %A_ScriptDir%
 SendMode Input
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+CoordMode, ToolTip, Screen
 
 Gosub, IniReader
 Gosub, GuiLayout
 
 OutputVarXX =  0
 OutputVarYY = 0
-PrevLine = ""
 First := 1
 Show := 0
 FocusView:=0
@@ -35,7 +39,6 @@ Loop{
 		}
 	}
 	
-	CoordMode, Mouse, Screen
     MouseGetPos , OutputVarXXX, OutputVarYYY
 	if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
 	{
@@ -44,13 +47,6 @@ Loop{
 		Gui, OCRClicker:Default
 		GuiControl,, Xcurr, %OutputVarXX%
 		GuiControl,, Ycurr, %OutputVarYY%
-	}
-	if (Clipboard != PrevLine){
-		Gui, OCRClicker:Default
-		if (Clipboard != ""){			
-			GuiControl,, OCRRead, %Clipboard%
-			PrevLine := Clipboard
-		}
 	}
 }
 
@@ -70,27 +66,21 @@ return
 DoStart:
 	FocusView := 1
 	Show := 1
-	;ListVars
 	Gui, OCRClicker:Submit, NoHide
-	Gosub, IniWriter
-	StringRun := A_ScriptDir . "\OCRRegion.ahk " . "" x "" . " " . "" y "" . " " . "" width "" . " " . "" height "" . " " . """" . "" TextRead "" . """"
-	;textRead can be multiple so it has quadruple quotes to include quotes and double quotes to contain spaces	
-	Run, %StringRun%, %A_ScriptDir%, Hide, ocrAHKPID
+	Gosub, IniWriter	
+	DrawSquare(X,Y,Width,Height)
+	SetTimer, OCRRegionLabel, 500
 return
 
 DoStop:
 	FocusView := 0
 	Show := 0
-	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
-	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID
-	;for debugging remove comments:
-	;ListVars
-	;Pause
+	SetTimer, OCRRegionLabel, Off
+	CancelSquare()
+	ToolTip
 return
 
-DoDraw:
-	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
-	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID		
+DoDraw:	
 	KeyWait, LButton, D		
 		MouseGetPos , FirstX, FirstY
 		Gui, OCRClicker:Show
@@ -216,6 +206,10 @@ return
 
 DoFocusView:
     Gui, OCRClicker:Show
+return
+
+OCRRegionLabel:
+	OCRRegionFunction(X,Y,Width,Height,TextRead)
 return
 
 F11::
