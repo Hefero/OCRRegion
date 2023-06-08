@@ -51,30 +51,25 @@ Loop
 			MouseGetPos, OutputVarX, OutputVarY	
 			Gosub, ActionToPerform
 			MouseMove, OutputVarX, OutputVarY, 0			
-			DrawSquare(X,Y,Width,Height)				
-			Sleep, 1500
-		}
-		else
-		{
-		
+			DrawSquare(X,Y,Width,Height)
 		}
 		
-		if (OCRTextRegion != PrevText){ ;shows tooltip case new
-		if (OCRTextRegion != 0){			
-			ToolTip, %OCRTextRegion%, %W%, %H%, 1			
-			PrevText := OCRTextRegion
-		}
-		else
-		{
-			ToolTip
-		}
-	}
-		
+		if (OCRTextRegion != PrevText)
+		{ ;shows tooltip case new
+			if (OCRTextRegion != 0)
+			{			
+				ToolTip, %OCRTextRegion%, %W%, %H%, 1			
+				PrevText := OCRTextRegion
+			}
+			else
+			{
+				ToolTip
+			}
+		}		
 		
     }	
 	Sleep, 1500
-    ; Delay between OCR checks
-    
+    ; Delay between OCR checks    
 }
 
 
