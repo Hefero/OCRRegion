@@ -1,9 +1,8 @@
-#NoTrayIcon
+;#NoTrayIcon
 #singleinstance force
-;#NoEnv
+#NoEnv
 SetWorkingDir %A_ScriptDir%
 SendMode Input
-Clipboard = Press Start
 
 Gosub, IniReader
 Gosub, GuiLayout
@@ -14,12 +13,12 @@ PrevLine = ""
 First := 1
 Show := 0
 FocusView:=0
-
+toggle := false
 Loop{	
 	GetKeyState, MousePressedOutside, LButton
-	if (MousePressedOutside = "D" & FocusView = 1)
+	if (MousePressedOutside = "D")
 	{
-		Show := 0
+		SetTimer, DoFocusView, Off
 	}
 	
 	if (MousePressedOutside = "U")
@@ -27,10 +26,11 @@ Loop{
 		if (FocusView = 1)
 		{
 			Show := 1
-			Gui, OCRClicker:Show
+			SetTimer, DoFocusView, 100
 		}
 		if (FocusView = 0)
 		{
+			SetTimer, DoFocusView, Off
 			Show := 0
 		}
 	}
@@ -212,4 +212,13 @@ GuiLayout:
 	Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRRead, Press Start
 	Gui, OCRClicker:Show, w381 h341, OCRClicker
 	; Generated using SmartGUI Creator for SciTE
+return
+
+DoFocusView:
+    Gui, OCRClicker:Show
+return
+
+F11::
+	Show := 0
+	FocusView := 0
 return
