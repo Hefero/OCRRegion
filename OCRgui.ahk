@@ -118,8 +118,7 @@ DoDraw:
 		MouseGetPos , FirstX, FirstY
 		Gui, OCRClicker:Show
 		Loop
-		{
-		
+		{		
 			DisplayX := FirstX
 			DisplayY := FirstY
 			GetKeyState, MousePressed, LButton
@@ -156,15 +155,11 @@ DoDraw:
 						GuiControl,, Xcurr, %OutputVarXX%
 						GuiControl,, Ycurr, %OutputVarYY%
 					}
-				
-				
-				
-				WinSet, Transparent, 100, Test2
-				
+				WinSet, Transparent, 100, Test2				
 			}
 			
 			else
-				{
+			{
 				MouseGetPos , CurrX, CurrY			
 				if (CurrX < FirstX)
 				{
@@ -184,15 +179,15 @@ DoDraw:
 				{
 					CurrHeight := CurrY - FirstY
 				}				
-					Gui, Square:Hide				
-					Gui, OCRClicker:Show
-					Gui, OCRClicker:Default
-					GuiControl,, x, %DisplayX%
-					GuiControl,, y, %DisplayY%
-					GuiControl,, width, %CurrWidth%
-					GuiControl,, height, %CurrHeight%				
-					return
-				}	
+				Gui, Square:Hide				
+				Gui, OCRClicker:Show
+				Gui, OCRClicker:Default
+				GuiControl,, x, %DisplayX%
+				GuiControl,, y, %DisplayY%
+				GuiControl,, width, %CurrWidth%
+				GuiControl,, height, %CurrHeight%				
+				return
+			}	
 				
 		}
 	;for debugging remove comments:
