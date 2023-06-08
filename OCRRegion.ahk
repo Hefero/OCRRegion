@@ -46,8 +46,8 @@ Loop
 		IfInString, OCRTextRegion, %TextRead%
 		{
 			; Take action if the desired text is found
-			; Replace "TextToSearch" with the text you want to search for			
-			Gui, Square:Cancel			
+			; Replace "TextToSearch" with the text you want to search for						
+			CancelSquare()
 			MouseGetPos, OutputVarX, OutputVarY	
 			Gosub, ActionToPerform
 			MouseMove, OutputVarX, OutputVarY, 0			
@@ -93,6 +93,11 @@ DrawSquare(X,Y,Width,Height)
 	Gui, Square:+AlwaysOnTop -Caption +ToolWindow	
 	Gui, Square:Show, x%X% y%Y% w%Width% h%Height%, SquareGui
 	WinSet, Transparent, 100, SquareGui
+}
+
+CancelSquare()
+{
+	Gui, Square:Cancel
 }
 
 ActionToPerform:
