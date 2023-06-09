@@ -3,11 +3,11 @@ RunWaitOne(command) {
     WshShell := ComObjCreate("WScript.Shell")
     ; Execute a single command via cmd.exe
 	executeCommand := """" . command . """"
-    exec := WshShell.Run(ComSpec " /C " executeCommand, 0) ;silent
+    exec := WshShell.Run(ComSpec " /C " executeCommand, 0, true) ;silent
 	;exec := WshShell.Exec(ComSpec " /C " executeCommand) ;opens window but returns stdout
     ; Read and return the command's output
-	commandOutput := exec.StdOut.ReadAll()	
-    return commandOutput
+	;commandOutput := exec.StdOut.ReadAll()	
+    return ;commandOutput
 }
 
 RunWaitMany(commands) {
