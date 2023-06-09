@@ -16,10 +16,6 @@ Gosub, GuiLayout
 OutputVarXX =  0
 OutputVarYY = 0
 First := 1
-Show := 0
-FocusView:=0
-toggle := false
-ToggleDraw := 0
 Loop{
     MouseGetPos , OutputVarXXX, OutputVarYYY
 	if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
