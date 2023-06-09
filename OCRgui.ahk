@@ -18,14 +18,6 @@ Loop{
 		Gosub, UpdateMouseXYIndicator
 }
 
-DoStart:
-	Gui, OCRClicker:Default
-	GuiControl,, SquareOn, 1
-	Gosub, SquareOnLabel
-	Gosub, IniWriter
-	SetTimer, OCRRegionLabel, 500
-return
-
 GuiLayout:
 	Gui, OCRClicker:+AlwaysOnTop +ToolWindow
 	Gui, OCRClicker:Add, CheckBox, x259 y45 w90 h30 gSquareOnLabel vSquareOn, Show Square
@@ -74,6 +66,15 @@ OCRRegionLabel:
 	OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct,SendKeysAct)
 return
 
+DoStart:
+	Gui, OCRClicker:Default
+	GuiControl,, OCRRead, Started
+	GuiControl,, SquareOn, 1
+	Gosub, SquareOnLabel
+	Gosub, IniWriter
+	SetTimer, OCRRegionLabel, 500
+return
+
 DoDraw:
 		DoDrawFunction()
 		Gosub, SquareOnLabel
@@ -99,6 +100,8 @@ return
 
 DoStop:
 	SetTimer, OCRRegionLabel, Off
+	Gui, OCRClicker:Default
+	GuiControl,, OCRRead, Stopped
 	Gosub, SquareOnLabel
 	ToolTip
 return
