@@ -58,8 +58,12 @@ GuiLayout:
 	Gui, OCRClicker:Add, Edit, x532 y89 w60 h20 vClickX , %ClickX%
 	Gui, OCRClicker:Add, Text, x612 y93 w70 h20, Y
 	Gui, OCRClicker:Add, Edit, x622 y89 w60 h20 vClickY , %ClickY%
-	Gui, OCRClicker:Add, Text, x432 y125 w70 h20, Send Input
+
+	Gui, OCRClicker:Add, Text, x432 y125 w70 h20, Send Text
 	Gui, OCRClicker:Add, Edit, x532 y122 w60 h20 vSendInputAct , %SendInputAct%
+
+	Gui, OCRClicker:Add, Text, x432 y155 w70 h20, Send Keys
+	Gui, OCRClicker:Add, Edit, x532 y152 w60 h20 vSendKeysAct , %SendKeysAct%
 
 
 	Gui, OCRClicker:Show, w781 h341, OCRClicker
@@ -67,7 +71,7 @@ GuiLayout:
 return
 
 OCRRegionLabel:
-	OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct)
+	OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct,vSendKeysAct)
 return
 
 DoDraw:
@@ -109,6 +113,7 @@ IniReader:
 	IniRead, ClickX, OCRsettings.ini, Settings, ClickX
 	IniRead, ClickY, OCRsettings.ini, Settings, ClickY
 	IniRead, SendInputAct, OCRsettings.ini, Settings, SendInputAct
+	IniRead, SendKeysAct, OCRsettings.ini, Settings, SendKeysAct
 return
 
 IniWriter:
@@ -120,6 +125,7 @@ IniWriter:
 	IniWrite, %ClickX%, OCRsettings.ini, Settings, ClickX
 	IniWrite, %ClickY%, OCRsettings.ini, Settings, ClickY
 	IniWrite, %SendInputAct%, OCRsettings.ini, Settings, SendInputAct
+	IniWrite, %SendKeysAct%, OCRsettings.ini, Settings, SendKeysAct
 return
 
 F12::

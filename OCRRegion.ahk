@@ -1,7 +1,7 @@
 #include OCR.ahk
 #include draw.ahk
 
-OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct){
+OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct,SendKeysAct){
 	W:= X + Width
 	H:= Y + Height
 	PrevText := ""
@@ -14,11 +14,14 @@ OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct){
 			; Replace "TextToSearch" with the text you want to search for						
 			CancelSquare()
 			;; action
-			MouseGetPos, OutputVarX, OutputVarY	
-			SendInput, {Click %ClickX%, %ClickY%}
+			MouseGetPos, OutputVarX, OutputVarY			
+			SendInput, {Click %ClickX%, %ClickY%}			
+			Sleep, 10
+			SendRaw, %SendInputAct%
+			Sleep, 10
+			Send {%SendKeysAct%}
+			Sleep, 10
 			MouseMove, OutputVarX, OutputVarY, 0
-
-			SendInput, {%SendInputAct%}
 			;;action end
 			Gosub, SquareOnLabel
 		}
