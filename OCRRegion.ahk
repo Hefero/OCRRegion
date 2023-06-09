@@ -24,7 +24,7 @@ OCRRegionFunction(X,Y,Width,Height,TextRead){
 	
 	if (OCRTextRegion != PrevText)
 	{ ;shows tooltip case new
-		if (OCRTextRegion != 0)
+		if (OCRTextRegion != 0 && OCRTextRegion != "<Error>")
 		{			
 			ToolTip, %OCRTextRegion%, %W%, %H%, 1
 			Gui, OCRClicker:Default
