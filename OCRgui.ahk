@@ -2,6 +2,7 @@
 #SingleInstance Off
 #NoEnv
 #include OCRRegion.ahk
+#include draw.ahk
 
 SetWorkingDir %A_ScriptDir%
 SendMode Input
@@ -19,26 +20,6 @@ Show := 0
 FocusView:=0
 toggle := false
 Loop{	
-	GetKeyState, MousePressedOutside, LButton
-	if (MousePressedOutside = "D")
-	{
-		SetTimer, DoFocusView, Off
-	}
-	
-	if (MousePressedOutside = "U")
-	{
-		if (FocusView = 1)
-		{
-			Show := 1
-			SetTimer, DoFocusView, 100
-		}
-		if (FocusView = 0)
-		{
-			SetTimer, DoFocusView, Off
-			Show := 0
-		}
-	}
-	
     MouseGetPos , OutputVarXXX, OutputVarYYY
 	if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
 	{
@@ -67,98 +48,16 @@ DoStart:
 	FocusView := 1
 	Show := 1
 	Gui, OCRClicker:Submit, NoHide
-	Gosub, IniWriter	
-	DrawSquare(X,Y,Width,Height)
+	Gosub, IniWriter
 	SetTimer, OCRRegionLabel, 500
 return
 
 DoStop:
-	FocusView := 0
-	Show := 0
 	SetTimer, OCRRegionLabel, Off
 	CancelSquare()
 	ToolTip
 return
 
-DoDraw:	
-	KeyWait, LButton, D		
-		MouseGetPos , FirstX, FirstY
-		Gui, OCRClicker:Show
-		Loop
-		{		
-			DisplayX := FirstX
-			DisplayY := FirstY
-			GetKeyState, MousePressed, LButton
-			if (MousePressed = "D")
-			{
-				MouseGetPos , CurrX, CurrY			
-				if (CurrX < FirstX)
-				{
-					CurrWidth := FirstX - CurrX					
-					DisplayX := CurrX
-				}
-				else
-				{
-					CurrWidth := CurrX - FirstX
-				}
-				if (CurrY < FirstY)
-				{					
-					CurrHeight := FirstY - CurrY					
-					DisplayY := CurrY
-				}
-				else
-				{
-					CurrHeight := CurrY - FirstY
-				}
-				Gui, Square2:Color, Blue
-				Gui, Square2:+AlwaysOnTop -Caption +ToolWindow	
-				Gui, Square2:Show, x%DisplayX% y%DisplayY% w%CurrWidth% h%CurrHeight%, Test2
-				    MouseGetPos , OutputVarXXX, OutputVarYYY
-					if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
-					{
-						OutputVarXX := OutputVarXXX
-						OutputVarYY := OutputVarYYY
-						Gui, OCRClicker:Default
-						GuiControl,, Xcurr, %OutputVarXX%
-						GuiControl,, Ycurr, %OutputVarYY%
-					}
-				WinSet, Transparent, 100, Test2				
-			}
-			
-			else
-			{
-				MouseGetPos , CurrX, CurrY			
-				if (CurrX < FirstX)
-				{
-					CurrWidth := FirstX - CurrX					
-					DisplayX := CurrX
-				}
-				else
-				{
-					CurrWidth := CurrX - FirstX
-				}
-				if (CurrY < FirstY)
-				{					
-					CurrHeight := FirstY - CurrY					
-					DisplayY := CurrY
-				}
-				else
-				{
-					CurrHeight := CurrY - FirstY
-				}				
-				Gui, Square2:Hide				
-				Gui, OCRClicker:Show
-				Gui, OCRClicker:Default
-				GuiControl,, x, %DisplayX%
-				GuiControl,, y, %DisplayY%
-				GuiControl,, width, %CurrWidth%
-				GuiControl,, height, %CurrHeight%				
-				return
-			}	
-				
-		}
-	;for debugging remove comments:
-return
 
 IniReader:
 	IniRead, X, OCRsettings.ini, Settings, X
@@ -177,7 +76,7 @@ IniWriter:
 return
 
 GuiLayout:
-	Gui, +AlwaysOnTop +ToolWindow
+	Gui, OCRClicker:+AlwaysOnTop +ToolWindow
 	Gui, OCRClicker:Add, GroupBox, x22 y19 w340 h290 ,
 	Gui, OCRClicker:Add, Edit, x112 y89 w60 h20 vx , %x%
 	Gui, OCRClicker:Add, Edit, x112 y129 w60 h20 vy , %y%
@@ -204,15 +103,17 @@ GuiLayout:
 	; Generated using SmartGUI Creator for SciTE
 return
 
-DoFocusView:
-    Gui, OCRClicker:Show
-return
 
 OCRRegionLabel:
 	OCRRegionFunction(X,Y,Width,Height,TextRead)
 return
 
 F11::
-	Show := 0
-	FocusView := 0
+	SetTimer, OCRRegionLabel, Off
+	CancelSquare()
+	ToolTip
+return
+
+DoDraw:
+	DoDrawFunction()
 return

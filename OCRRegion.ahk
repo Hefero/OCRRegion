@@ -1,4 +1,5 @@
 #include OCR.ahk
+#include draw.ahk
 
 OCRRegionFunction(X,Y,Width,Height,TextRead){
 	W:= X + Width
@@ -35,20 +36,5 @@ OCRRegionFunction(X,Y,Width,Height,TextRead){
 			ToolTip
 		}
 	}
-	return
-}
-
-DrawSquare(X,Y,Width,Height)
-{
-	Gui, Square:Color, Blue
-	Gui, Square:+AlwaysOnTop -Caption +ToolWindow	
-	Gui, Square:Show, x%X% y%Y% w%Width% h%Height%, SquareGui
-	WinSet, Transparent, 100, SquareGui
-	return
-}
-
-CancelSquare()
-{
-	Gui, Square:Cancel
 	return
 }
