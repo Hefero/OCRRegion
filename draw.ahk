@@ -46,19 +46,8 @@ DoDrawFunction(){
 				{
 					CurrHeight := CurrY - FirstY
 				}
-				Gui, Square:Color, Blue
-				Gui, Square:+AlwaysOnTop -Caption +ToolWindow	
-				Gui, Square:Show, x%DisplayX% y%DisplayY% w%CurrWidth% h%CurrHeight%, Test2
-				    MouseGetPos , OutputVarXXX, OutputVarYYY
-					if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
-					{
-						OutputVarXX := OutputVarXXX
-						OutputVarYY := OutputVarYYY
-						Gui, OCRClicker:Default
-						GuiControl,, Xcurr, %OutputVarXX%
-						GuiControl,, Ycurr, %OutputVarYY%
-					}
-				WinSet, Transparent, 100, Test2				
+				DrawSquare(DisplayX,DisplayY,CurrWidth,CurrHeight)
+				Gosub, UpdateMouseXYIndicator
 			}
 			
 			else
@@ -81,7 +70,7 @@ DoDrawFunction(){
 				else
 				{
 					CurrHeight := CurrY - FirstY
-				}
+				}				
 				Gui, OCRClicker:Default
 				GuiControl,, X, %DisplayX%
 				GuiControl,, Y, %DisplayY%
@@ -91,6 +80,5 @@ DoDrawFunction(){
 			}	
 				
 		}
-	;for debugging remove comments:
 return
 }

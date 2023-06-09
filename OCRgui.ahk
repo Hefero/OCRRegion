@@ -13,19 +13,9 @@ CoordMode, ToolTip, Screen
 Gosub, IniReader
 Gosub, GuiLayout
 
-OutputVarXX =  0
-OutputVarYY = 0
 First := 1
 Loop{
-    MouseGetPos , OutputVarXXX, OutputVarYYY
-	if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
-	{
-		OutputVarXX := OutputVarXXX
-		OutputVarYY := OutputVarYYY
-		Gui, OCRClicker:Default
-		GuiControl,, Xcurr, %OutputVarXX%
-		GuiControl,, Ycurr, %OutputVarYY%
-	}
+		Gosub, UpdateMouseXYIndicator
 }
 
 DoStart:
@@ -87,6 +77,13 @@ SquareOnLabel:
 	{
 		DrawSquare(X,Y,Width,Height)
 	}
+return
+
+UpdateMouseXYIndicator:
+		MouseGetPos , OutputVarXX, OutputVarYY
+		Gui, OCRClicker:Default
+		GuiControl,, Xcurr, %OutputVarXX%
+		GuiControl,, Ycurr, %OutputVarYY%
 return
 
 DoStop:
