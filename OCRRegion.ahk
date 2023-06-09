@@ -12,9 +12,11 @@ OCRRegionFunction(X,Y,Width,Height,TextRead){
 			; Take action if the desired text is found
 			; Replace "TextToSearch" with the text you want to search for						
 			CancelSquare()
+			;; action
 			MouseGetPos, OutputVarX, OutputVarY	
 			SendInput, {Click %X%, %Y%}
-			MouseMove, OutputVarX, OutputVarY, 0			
+			MouseMove, OutputVarX, OutputVarY, 0
+			;;action end
 			DrawSquare(X,Y,Width,Height)
 		}
 	}
