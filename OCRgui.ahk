@@ -20,7 +20,7 @@ Show := 0
 FocusView:=0
 toggle := false
 ToggleDraw := 0
-Loop{	
+Loop{
     MouseGetPos , OutputVarXXX, OutputVarYYY
 	if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
 	{
@@ -46,16 +46,18 @@ return
 
 
 DoStart:
-	FocusView := 1
-	Show := 1
 	Gui, OCRClicker:Submit, NoHide
+	Gosub, SquareOnLabel
 	Gosub, IniWriter
 	SetTimer, OCRRegionLabel, 500
+	if (SquareOn = 0){
+		Gui, Square:Show
+	}
 return
 
 DoStop:
 	SetTimer, OCRRegionLabel, Off
-	CancelSquare()
+	Gosub, SquareOnLabel
 	ToolTip
 return
 
@@ -78,9 +80,10 @@ return
 
 GuiLayout:
 	Gui, OCRClicker:+AlwaysOnTop +ToolWindow
+	Gui, OCRClicker:Add, CheckBox, x259 y45 w90 h30 gSquareOnLabel vSquareOn, Show Square
 	Gui, OCRClicker:Add, GroupBox, x22 y19 w340 h290 ,
-	Gui, OCRClicker:Add, Edit, x112 y89 w60 h20 vx , %x%
-	Gui, OCRClicker:Add, Edit, x112 y129 w60 h20 vy , %y%
+	Gui, OCRClicker:Add, Edit, x112 y89 w60 h20 vX , %x%
+	Gui, OCRClicker:Add, Edit, x112 y129 w60 h20 vY , %y%
 	Gui, OCRClicker:Add, Edit, x112 y169 w60 h20 vWidth , %width%
 	Gui, OCRClicker:Add, Edit, x112 y209 w60 h20 vHeight , %height%
 	Gui, OCRClicker:Add, Text, x32 y89 w70 h20, X
@@ -100,7 +103,11 @@ GuiLayout:
 	Gui, OCRClicker:Add, Text, x112 y49 w60 h20 +Left, Value
 	Gui, OCRClicker:Add, Text, x282 y318 w260 h20 +Left, Press F11 to stop
 	Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRRead, Press Start
-	Gui, OCRClicker:Show, w381 h341, OCRClicker
+
+	Gui, OCRClicker:Add, GroupBox, x410 y19 w340 h290 ,
+
+
+	Gui, OCRClicker:Show, w781 h341, OCRClicker
 	; Generated using SmartGUI Creator for SciTE
 return
 
@@ -116,12 +123,18 @@ F11::
 return
 
 DoDraw:
-	if (ToggleDraw = 0){
 		DoDrawFunction()
-		ToggleDraw := 1
-	}
-	else {
-		ToggleDraw := 0
+		Gui, OCRClicker:Submit, NoHide
+		Gosub, SquareOnLabel
+return
+
+SquareOnLabel:
+	Gui, OCRClicker:Submit, NoHide
+	if(SquareOn = 0){
 		CancelSquare()
+	}
+	else
+	{
+		DrawSquare(X,Y,Width,Height)
 	}
 return

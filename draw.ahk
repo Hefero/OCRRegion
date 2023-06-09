@@ -83,10 +83,10 @@ DoDrawFunction(){
 					CurrHeight := CurrY - FirstY
 				}
 				Gui, OCRClicker:Default
-				GuiControl,, x, %DisplayX%
-				GuiControl,, y, %DisplayY%
-				GuiControl,, width, %CurrWidth%
-				GuiControl,, height, %CurrHeight%				
+				GuiControl,, X, %DisplayX%
+				GuiControl,, Y, %DisplayY%
+				GuiControl,, Width, %CurrWidth%
+				GuiControl,, Height, %CurrHeight%				
 				return
 			}	
 				
