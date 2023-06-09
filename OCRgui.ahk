@@ -19,6 +19,7 @@ First := 1
 Show := 0
 FocusView:=0
 toggle := false
+ToggleDraw := 0
 Loop{	
     MouseGetPos , OutputVarXXX, OutputVarYYY
 	if (OutputVarXXX != OutputVarXX && OutputVarYYY!= OutputVarYY  )
@@ -115,5 +116,12 @@ F11::
 return
 
 DoDraw:
-	DoDrawFunction()
+	if (ToggleDraw = 0){
+		DoDrawFunction()
+		ToggleDraw := 1
+	}
+	else {
+		ToggleDraw := 0
+		CancelSquare()
+	}
 return
