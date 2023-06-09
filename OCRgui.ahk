@@ -49,10 +49,17 @@ GuiLayout:
 	Gui, OCRClicker:Add, Button, x242 y79 w100 h30 gDoDraw , Draw
 	Gui, OCRClicker:Add, Text, x32 y49 w70 h20 +Left, Parameter
 	Gui, OCRClicker:Add, Text, x112 y49 w60 h20 +Left, Value
-	Gui, OCRClicker:Add, Text, x282 y318 w260 h20 +Left, Press F12 to stop
+	Gui, OCRClicker:Add, Text, x682 y318 w260 h20 +Left, Press F12 to stop
 	Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRRead, Press Start
 
 	Gui, OCRClicker:Add, GroupBox, x410 y19 w340 h290 ,
+	Gui, OCRClicker:Add, Text, x432 y93 w70 h20, Click Position
+	Gui, OCRClicker:Add, Text, x520 y93 w70 h20, X
+	Gui, OCRClicker:Add, Edit, x532 y89 w60 h20 vClickX , %ClickX%
+	Gui, OCRClicker:Add, Text, x612 y93 w70 h20, Y
+	Gui, OCRClicker:Add, Edit, x622 y89 w60 h20 vClickY , %ClickY%
+	Gui, OCRClicker:Add, Text, x432 y125 w70 h20, Send Input
+	Gui, OCRClicker:Add, Edit, x532 y122 w60 h20 vSendInputAct , %SendInputAct%
 
 
 	Gui, OCRClicker:Show, w781 h341, OCRClicker
@@ -60,7 +67,7 @@ GuiLayout:
 return
 
 OCRRegionLabel:
-	OCRRegionFunction(X,Y,Width,Height,TextRead)
+	OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct)
 return
 
 DoDraw:
@@ -99,6 +106,9 @@ IniReader:
 	IniRead, Width, OCRsettings.ini, Settings, Width
 	IniRead, Height, OCRsettings.ini, Settings, Height
 	IniRead, TextRead, OCRsettings.ini, Settings, TextRead
+	IniRead, ClickX, OCRsettings.ini, Settings, ClickX
+	IniRead, ClickY, OCRsettings.ini, Settings, ClickY
+	IniRead, SendInputAct, OCRsettings.ini, Settings, SendInputAct
 return
 
 IniWriter:
@@ -107,6 +117,9 @@ IniWriter:
 	IniWrite, %Width%, OCRsettings.ini, Settings, Width
 	IniWrite, %Height%, OCRsettings.ini, Settings, Height
 	IniWrite, %TextRead%, OCRsettings.ini, Settings, TextRead
+	IniWrite, %ClickX%, OCRsettings.ini, Settings, ClickX
+	IniWrite, %ClickY%, OCRsettings.ini, Settings, ClickY
+	IniWrite, %SendInputAct%, OCRsettings.ini, Settings, SendInputAct
 return
 
 F12::

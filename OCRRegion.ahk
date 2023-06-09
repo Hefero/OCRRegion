@@ -1,7 +1,7 @@
 #include OCR.ahk
 #include draw.ahk
 
-OCRRegionFunction(X,Y,Width,Height,TextRead){
+OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct){
 	W:= X + Width
 	H:= Y + Height
 	PrevText := ""
@@ -15,8 +15,10 @@ OCRRegionFunction(X,Y,Width,Height,TextRead){
 			CancelSquare()
 			;; action
 			MouseGetPos, OutputVarX, OutputVarY	
-			SendInput, {Click %X%, %Y%}
+			SendInput, {Click %ClickX%, %ClickY%}
 			MouseMove, OutputVarX, OutputVarY, 0
+
+			SendInput, {%SendInputAct%}
 			;;action end
 			Gosub, SquareOnLabel
 		}
