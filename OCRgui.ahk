@@ -34,7 +34,7 @@ GuiLayout:
 	Gui, OCRClicker:Add, Text, x32 y211 w70 h20, Height
 	Gui, OCRClicker:Add, Edit, x112 y249 w110 h20 vTextRead, %TextRead%
 	Gui, OCRClicker:Add, Text, x32 y249 w70 h20, TextRead
-	Gui, OCRClicker:Add, Button, x242 y239 w100 h30 gDoStart, Start
+	Gui, OCRClicker:Add, Button, x242 y239 w100 h30 vStartBtn gDoStart, Start
 	Gui, OCRClicker:Add, Button, x242 y199 w100 h30 gDoStop, Stop
 	Gui, OCRClicker:Add, Button, x242 y159 w100 h30 gDoReload, Reload
 	Gui, OCRClicker:Add, Button, x242 y119 w100 h30 gDoExit, Exit
@@ -67,12 +67,13 @@ OCRRegionLabel:
 return
 
 DoStart:
-	Gui, OCRClicker:Default
+	Gui, OCRClicker:Default	
 	GuiControl,, OCRRead, Started
 	GuiControl,, SquareOn, 1
 	Gosub, SquareOnLabel
 	Gosub, IniWriter
 	SetTimer, OCRRegionLabel, 500
+	GuiControl, +Default, Start
 return
 
 DoDraw:
@@ -103,6 +104,7 @@ DoStop:
 	Gui, OCRClicker:Default
 	GuiControl,, OCRRead, Stopped
 	Gosub, SquareOnLabel
+	GuiControl, +Default, Stop
 	ToolTip
 return
 
