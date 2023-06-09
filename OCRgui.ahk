@@ -28,15 +28,6 @@ Loop{
 	}
 }
 
-DoExit:
-	ExitApp
-return
-
-DoReload:
-	Reload
-return
-
-
 DoStart:
 	Gui, OCRClicker:Default
 	GuiControl,, SquareOn, 1
@@ -91,7 +82,7 @@ GuiLayout:
 	Gui, OCRClicker:Add, Button, x242 y79 w100 h30 gDoDraw , Draw
 	Gui, OCRClicker:Add, Text, x32 y49 w70 h20 +Left, Parameter
 	Gui, OCRClicker:Add, Text, x112 y49 w60 h20 +Left, Value
-	Gui, OCRClicker:Add, Text, x282 y318 w260 h20 +Left, Press F11 to stop
+	Gui, OCRClicker:Add, Text, x282 y318 w260 h20 +Left, Press F12 to stop
 	Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRRead, Press Start
 
 	Gui, OCRClicker:Add, GroupBox, x410 y19 w340 h290 ,
@@ -106,7 +97,7 @@ OCRRegionLabel:
 	OCRRegionFunction(X,Y,Width,Height,TextRead)
 return
 
-F11::
+F12::
 	SetTimer, OCRRegionLabel, Off
 	CancelSquare()
 	ToolTip
@@ -126,4 +117,12 @@ SquareOnLabel:
 	{
 		DrawSquare(X,Y,Width,Height)
 	}
+return
+
+DoExit:
+	ExitApp
+return
+
+DoReload:
+	Reload
 return
