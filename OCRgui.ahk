@@ -38,7 +38,8 @@ return
 
 
 DoStart:
-	Gui, OCRClicker:Submit, NoHide
+	Gui, OCRClicker:Default
+	GuiControl,, SquareOn, 1
 	Gosub, SquareOnLabel
 	Gosub, IniWriter
 	SetTimer, OCRRegionLabel, 500
@@ -113,7 +114,6 @@ return
 
 DoDraw:
 		DoDrawFunction()
-		Gui, OCRClicker:Submit, NoHide
 		Gosub, SquareOnLabel
 return
 
