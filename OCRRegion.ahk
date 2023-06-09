@@ -36,21 +36,6 @@ OCRRegionFunction(X,Y,Width,Height,TextRead){
 	return
 }
 
-
-
-OCRRegion(X,Y,Width,Height,TextRead){
-	ocrText := OCR(X,Y,Width,Height)
-	; find textread on recognized text
-	IfInString, ocrText, %TextRead%
-	{
-		return ocrText
-	}
-	else
-	{
-		return false	
-	}
-}
-
 DrawSquare(X,Y,Width,Height)
 {
 	Gui, Square:Color, Blue
