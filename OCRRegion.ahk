@@ -18,7 +18,7 @@ OCRRegionFunction(X,Y,Width,Height,TextRead){
 			SendInput, {Click %X%, %Y%}
 			MouseMove, OutputVarX, OutputVarY, 0
 			;;action end
-			DrawSquare(X,Y,Width,Height)
+			Gosub, SquareOnLabel
 		}
 	}
 	

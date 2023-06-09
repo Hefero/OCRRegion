@@ -42,9 +42,6 @@ DoStart:
 	Gosub, SquareOnLabel
 	Gosub, IniWriter
 	SetTimer, OCRRegionLabel, 500
-	if (SquareOn = 0){
-		Gui, Square:Show
-	}
 return
 
 DoStop:
