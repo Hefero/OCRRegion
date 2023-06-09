@@ -19,7 +19,7 @@ OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct,SendKeysA
 			Sleep, 10
 			SendRaw, %SendInputAct%
 			Sleep, 10
-			Send {%SendKeysAct%}
+			Send, {%SendKeysAct%}
 			Sleep, 10
 			MouseMove, OutputVarX, OutputVarY, 0
 			;;action end
