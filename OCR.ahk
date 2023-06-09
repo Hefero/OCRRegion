@@ -18,6 +18,7 @@ OCR(x,y,w,h)
 	CLIappend := " -o lastread.txt --screen-rect " . """"  CoordsForm """"
 	CLIcommand :=  CLIpath . CLIappend
 	StringReturn := RunWaitOne(CLIcommand)
+	Sleep, 500
 	FileReadLine, OutputVar, lastread.txt, 1
 	return OutputVar
 }
