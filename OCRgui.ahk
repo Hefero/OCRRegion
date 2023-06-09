@@ -29,14 +29,10 @@ Loop{
 }
 
 DoExit:
-	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
-	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID 
 	ExitApp
 return
 
 DoReload:
-	StringKill := A_ScriptDir . "\OCRRegion.ahk kill"
-	Run, %StringKill%, %A_ScriptDir%, Hide, ocrAHKPID	
 	Reload
 return
 
