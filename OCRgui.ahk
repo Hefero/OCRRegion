@@ -36,29 +36,6 @@ DoStart:
 	SetTimer, OCRRegionLabel, 500
 return
 
-DoStop:
-	SetTimer, OCRRegionLabel, Off
-	Gosub, SquareOnLabel
-	ToolTip
-return
-
-
-IniReader:
-	IniRead, X, OCRsettings.ini, Settings, X
-	IniRead, Y, OCRsettings.ini, Settings, Y
-	IniRead, Width, OCRsettings.ini, Settings, Width
-	IniRead, Height, OCRsettings.ini, Settings, Height
-	IniRead, TextRead, OCRsettings.ini, Settings, TextRead
-return
-
-IniWriter:
-	IniWrite, %X%, OCRsettings.ini, Settings, X
-	IniWrite, %Y%, OCRsettings.ini, Settings, Y
-	IniWrite, %Width%, OCRsettings.ini, Settings, Width
-	IniWrite, %Height%, OCRsettings.ini, Settings, Height
-	IniWrite, %TextRead%, OCRsettings.ini, Settings, TextRead
-return
-
 GuiLayout:
 	Gui, OCRClicker:+AlwaysOnTop +ToolWindow
 	Gui, OCRClicker:Add, CheckBox, x259 y45 w90 h30 gSquareOnLabel vSquareOn, Show Square
@@ -92,15 +69,8 @@ GuiLayout:
 	; Generated using SmartGUI Creator for SciTE
 return
 
-
 OCRRegionLabel:
 	OCRRegionFunction(X,Y,Width,Height,TextRead)
-return
-
-F12::
-	SetTimer, OCRRegionLabel, Off
-	CancelSquare()
-	ToolTip
 return
 
 DoDraw:
@@ -117,6 +87,35 @@ SquareOnLabel:
 	{
 		DrawSquare(X,Y,Width,Height)
 	}
+return
+
+DoStop:
+	SetTimer, OCRRegionLabel, Off
+	Gosub, SquareOnLabel
+	ToolTip
+return
+
+
+IniReader:
+	IniRead, X, OCRsettings.ini, Settings, X
+	IniRead, Y, OCRsettings.ini, Settings, Y
+	IniRead, Width, OCRsettings.ini, Settings, Width
+	IniRead, Height, OCRsettings.ini, Settings, Height
+	IniRead, TextRead, OCRsettings.ini, Settings, TextRead
+return
+
+IniWriter:
+	IniWrite, %X%, OCRsettings.ini, Settings, X
+	IniWrite, %Y%, OCRsettings.ini, Settings, Y
+	IniWrite, %Width%, OCRsettings.ini, Settings, Width
+	IniWrite, %Height%, OCRsettings.ini, Settings, Height
+	IniWrite, %TextRead%, OCRsettings.ini, Settings, TextRead
+return
+
+F12::
+	SetTimer, OCRRegionLabel, Off
+	CancelSquare()
+	ToolTip
 return
 
 DoExit:
