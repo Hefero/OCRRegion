@@ -29,12 +29,11 @@ DoDrawFunction(){
 			{
 				MouseGetPos , CurrX, CurrY
 				if (CurrX < FirstX)
-				{									
+				{
 					DisplayX := CurrX
 				}
 				if (CurrY < FirstY)
-				{					
-									
+				{
 					DisplayY := CurrY
 				}
 				DrawSquare(DisplayX,DisplayY,Abs(FirstX - CurrX),Abs(FirstY - CurrY))
@@ -45,15 +44,15 @@ DoDrawFunction(){
 			{
 				MouseGetPos , CurrX, CurrY
 				CurrHeight := Abs(FirstY - CurrY)
-				CurrWidth := Abs(FirstX - CurrX)		
+				CurrWidth := Abs(FirstX - CurrX)
 				if (CurrX < FirstX)
-				{			
+				{
 					DisplayX := CurrX
 				}
 				if (CurrY < FirstY)
-				{									
+				{
 					DisplayY := CurrY
-				}			
+				}
 				Gui, OCRClicker:Default
 				GuiControl,, X, %DisplayX%
 				GuiControl,, Y, %DisplayY%
