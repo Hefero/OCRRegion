@@ -43,6 +43,9 @@ GuiLayout:
 	Gui, OCRClicker:Add, Text, x112 y49 w60 h20 +Left, Value
 	Gui, OCRClicker:Add, Text, x682 y318 w260 h20 +Left, Press F12 to stop
 	Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRRead, Press Start
+	Gui, OCRClicker:Add, Text, x412 y318 w260 h20 +Left, F11 to parse XY to Click
+
+
 
 	Gui, OCRClicker:Add, GroupBox, x410 y19 w340 h290,
 	Gui, OCRClicker:Add, Text, x432 y93 w70 h20, Click Position
@@ -137,6 +140,13 @@ F12::
 	SetTimer, OCRRegionLabel, Off
 	CancelSquare()
 	ToolTip
+return
+
+F11::
+	Gui, OCRClicker:Default
+	MouseGetPos, OutputVarX, OutputVarY
+	GuiControl,, ClickX, %OutputVarX%
+	GuiControl,, ClickY, %OutputVarY%
 return
 
 DoExit:
