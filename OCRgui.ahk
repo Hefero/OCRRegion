@@ -44,9 +44,6 @@ GuiLayout:
 	Gui, OCRClicker:Add, Text, x682 y318 w260 h20 +Left, Press F12 to stop
 	Gui, OCRClicker:Add, Text, x23 y318 w250 h20 +Left vOCRRead, Press Start
 	Gui, OCRClicker:Add, Text, x412 y318 w260 h20 +Left, F11 to parse XY to Click
-	
-
-
 
 	Gui, OCRClicker:Add, GroupBox, x410 y19 w340 h290,
 	Gui, OCRClicker:Add, Text, x432 y93 w70 h20, Click Position
@@ -55,22 +52,22 @@ GuiLayout:
 	Gui, OCRClicker:Add, Text, x612 y93 w70 h20, Y
 	Gui, OCRClicker:Add, Edit, x622 y89 w60 h20 vClickY, %ClickY%
 	Gui, OCRClicker:Add, Edit, x692 y89 w47 h20 vDelayClick, %DelayClick%
-	Gui, OCRClicker:Add, UpDown, vDelayClickUpDwn Range1-1000000, 15
+	Gui, OCRClicker:Add, UpDown, vDelayClickUpDwn Range1-10000000, 15
 
 	Gui, OCRClicker:Add, Text, x432 y125 w70 h20, Send Text
 	Gui, OCRClicker:Add, Edit, x532 y122 w150 h20 vSendInputAct, %SendInputAct%
 	Gui, OCRClicker:Add, Edit, x692 y122 w47 h20 vDelayInput, %DelayInput%
-	Gui, OCRClicker:Add, UpDown, vDelayInputUpDwn Range1-1000000, 15
+	Gui, OCRClicker:Add, UpDown, vDelayInputUpDwn Range1-10000000, 15
 
 	Gui, OCRClicker:Add, Text, x432 y155 w70 h20, Send Keys
 	Gui, OCRClicker:Add, Edit, x532 y152 w150 h20 vSendKeysAct, %SendKeysAct%
 	Gui, OCRClicker:Add, Edit, x692 y152 w47 h20 vDelayKeys, %DelayKeys%
-	Gui, OCRClicker:Add, UpDown, vDelayKeysUpDwn Range1-1000000, 15
+	Gui, OCRClicker:Add, UpDown, vDelayKeysUpDwn Range1-10000000, 15
 
 	Gui, OCRClicker:Add, Text, x432 y185 w70 h20, Send Script
 	Gui, OCRClicker:Add, Edit, x532 y182 w150 h90 vSendScript, %SendScript%
 	Gui, OCRClicker:Add, Edit, x692 y182 w47 h20 vDelayScript, %DelayScript%
-	Gui, OCRClicker:Add, UpDown, vDelayScriptUpDwn Range1-1000000, 15
+	Gui, OCRClicker:Add, UpDown, vDelayScriptUpDwn Range1-10000000, 15
 
 
 	Gui, OCRClicker:Show, w781 h341, OCRClicker
