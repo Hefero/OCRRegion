@@ -27,50 +27,33 @@ DoDrawFunction(){
 			GetKeyState, MousePressed, LButton
 			if (MousePressed = "D")
 			{
-				MouseGetPos , CurrX, CurrY			
+				MouseGetPos , CurrX, CurrY
 				if (CurrX < FirstX)
-				{
-					CurrWidth := FirstX - CurrX					
+				{									
 					DisplayX := CurrX
-				}
-				else
-				{
-					CurrWidth := CurrX - FirstX
 				}
 				if (CurrY < FirstY)
 				{					
-					CurrHeight := FirstY - CurrY					
+									
 					DisplayY := CurrY
 				}
-				else
-				{
-					CurrHeight := CurrY - FirstY
-				}
-				DrawSquare(DisplayX,DisplayY,CurrWidth,CurrHeight)
+				DrawSquare(DisplayX,DisplayY,Abs(FirstX - CurrX),Abs(FirstY - CurrY))
 				Gosub, UpdateMouseXYIndicator
 			}
 			
 			else
 			{
-				MouseGetPos , CurrX, CurrY			
+				MouseGetPos , CurrX, CurrY
+				CurrHeight := Abs(FirstY - CurrY)
+				CurrWidth := Abs(FirstX - CurrX)		
 				if (CurrX < FirstX)
-				{
-					CurrWidth := FirstX - CurrX					
+				{			
 					DisplayX := CurrX
 				}
-				else
-				{
-					CurrWidth := CurrX - FirstX
-				}
 				if (CurrY < FirstY)
-				{					
-					CurrHeight := FirstY - CurrY					
+				{									
 					DisplayY := CurrY
-				}
-				else
-				{
-					CurrHeight := CurrY - FirstY
-				}				
+				}			
 				Gui, OCRClicker:Default
 				GuiControl,, X, %DisplayX%
 				GuiControl,, Y, %DisplayY%
