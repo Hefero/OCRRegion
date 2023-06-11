@@ -3,7 +3,7 @@
 DrawSquare(X,Y,Width,Height)
 {
 	Gui, Square:Color, Blue
-	Gui, Square:+AlwaysOnTop -Caption +ToolWindow
+	Gui, Square:-Caption +ToolWindow
 	Gui, Square:Show, x%X% y%Y% w%Width% h%Height%, SquareGui
 	WinSet, Transparent, 100, SquareGui
 	return
@@ -75,7 +75,7 @@ DoDrawFunction(){
 DisplayInvisibleFullRect(){	
 	SysGet, OutputVarX, 78
 	SysGet, OutputVarY, 79
-	Gui, SquareFullRect:+AlwaysOnTop -Caption +ToolWindow
+	Gui, SquareFullRect: -Caption +ToolWindow
 	Gui, SquareFullRect:Show, x0 y0 w0 h0, SquareGuiRect
 	Gui, SquareFullRect:Show, x0 y0 w%OutputVarX% h%OutputVarY%, SquareGuiRect
 	WinSet, Transparent, 0, SquareGuiRect
