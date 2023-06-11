@@ -3,7 +3,7 @@
 DrawSquare(X,Y,Width,Height)
 {
 	Gui, Square:Color, Blue
-	Gui, Square:+AlwaysOnTop -Caption +ToolWindow	
+	Gui, Square:+AlwaysOnTop -Caption +ToolWindow
 	Gui, Square:Show, x%X% y%Y% w%Width% h%Height%, SquareGui
 	WinSet, Transparent, 100, SquareGui
 	return
@@ -40,7 +40,7 @@ DoDrawFunction(){
 					if (CurrY < FirstY)
 					{
 						DisplayY := CurrY
-					}
+					}					
 					DrawSquare(DisplayX,DisplayY,Abs(FirstX - CurrX),Abs(FirstY - CurrY))
 					Gosub, UpdateMouseXYIndicator
 				}
@@ -68,15 +68,16 @@ DoDrawFunction(){
 			}
 		}
 	}
-	CancelSquare()
+	Gui, SquareFullRect:Cancel
 	return
 }
 
-DisplayInvisibleFullRect(){
-	WinSet, Transparent, 0, SquareGui
+DisplayInvisibleFullRect(){	
 	SysGet, OutputVarX, 78
 	SysGet, OutputVarY, 79
-	DrawSquare(0,0,OutputVarX,OutputVarY)
-	WinSet, Transparent, 0, SquareGui
+	Gui, SquareFullRect:+AlwaysOnTop -Caption +ToolWindow
+	Gui, SquareFullRect:Show, x0 y0 w0 h0, SquareGui
+	Gui, SquareFullRect:Show, x0 y0 w%OutputVarX% h%OutputVarY%, SquareGuiRect
+	WinSet, Transparent, 0, SquareGuiRect
 	return
 }

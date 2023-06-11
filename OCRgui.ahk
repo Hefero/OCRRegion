@@ -14,7 +14,7 @@ Gosub, IniReader
 Gosub, GuiLayout
 
 First := 1
-Loop{
+Loop{		
 		Gosub, UpdateMouseXYIndicator
 }
 
