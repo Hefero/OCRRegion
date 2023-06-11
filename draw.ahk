@@ -17,6 +17,7 @@ CancelSquare()
 
 
 DoDrawFunction(){
+	DisplayInvisibleFullRect()
 	Loop{
 		GetKeyState, MousePressed, LButton
 		Gosub, UpdateMouseXYIndicator
@@ -67,5 +68,15 @@ DoDrawFunction(){
 			}
 		}
 	}
+	CancelSquare()
+	return
+}
+
+DisplayInvisibleFullRect(){
+	WinSet, Transparent, 0, SquareGui
+	SysGet, OutputVarX, 78
+	SysGet, OutputVarY, 79
+	DrawSquare(0,0,OutputVarX,OutputVarY)
+	WinSet, Transparent, 0, SquareGui
 	return
 }
