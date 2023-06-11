@@ -110,7 +110,7 @@ DoStop:
 	SetTimer, OCRRegionLabel, Off
 	Gui, OCRClicker:Default
 	GuiControl,, OCRRead, Stopped
-	Gosub, SquareOnLabel
+	CancelSquare()
 	GuiControl, +Default, Stop
 	ToolTip
 return
