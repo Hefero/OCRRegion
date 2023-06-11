@@ -62,13 +62,13 @@ DoDrawFunction(){
 					GuiControl,, X, %DisplayX%
 					GuiControl,, Y, %DisplayY%
 					GuiControl,, Width, %CurrWidth%
-					GuiControl,, Height, %CurrHeight%				
+					GuiControl,, Height, %CurrHeight%					
+					Gui, SquareFullRect:Cancel
 					return
 				}					
 			}
 		}
 	}
-	Gui, SquareFullRect:Cancel
 	return
 }
 
@@ -76,7 +76,7 @@ DisplayInvisibleFullRect(){
 	SysGet, OutputVarX, 78
 	SysGet, OutputVarY, 79
 	Gui, SquareFullRect:+AlwaysOnTop -Caption +ToolWindow
-	Gui, SquareFullRect:Show, x0 y0 w0 h0, SquareGui
+	Gui, SquareFullRect:Show, x0 y0 w0 h0, SquareGuiRect
 	Gui, SquareFullRect:Show, x0 y0 w%OutputVarX% h%OutputVarY%, SquareGuiRect
 	WinSet, Transparent, 0, SquareGuiRect
 	return
