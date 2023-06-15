@@ -137,6 +137,7 @@ IniReader:
 	IniRead, ClickY, OCRsettings.ini, Settings, ClickY
 	IniRead, SendInputAct, OCRsettings.ini, Settings, SendInputAct
 	IniRead, SendKeysAct, OCRsettings.ini, Settings, SendKeysAct
+	IniRead, SendScript, OCRsettings.ini, Settings, SendScript
 return
 
 IniWriter:
@@ -149,6 +150,7 @@ IniWriter:
 	IniWrite, %ClickY%, OCRsettings.ini, Settings, ClickY
 	IniWrite, %SendInputAct%, OCRsettings.ini, Settings, SendInputAct
 	IniWrite, %SendKeysAct%, OCRsettings.ini, Settings, SendKeysAct
+	IniWrite, %SendScript%, OCRsettings.ini, Settings, SendScript
 return
 
 F12::
