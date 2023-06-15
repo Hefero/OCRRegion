@@ -1,7 +1,12 @@
+
+
+
 #include OCR.ahk
 #include draw.ahk
 
-OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct,SendKeysAct){
+OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY
+,SendInputAct,SendKeysAct,SendScript
+,DelayClick,DelayInput,DelayKeys,DelayScript){
 	W:= X + Width
 	H:= Y + Height
 	PrevText := ""
@@ -11,19 +16,29 @@ OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct,SendKeysA
 		IfInString, OCRTextRegion, %TextRead%
 		{
 			; Take action if the desired text is found
-			; Replace "TextToSearch" with the text you want to search for						
-			CancelSquare()
+			; Replace "TextToSearch" with the text you want to search for
 			;; action
-			MouseGetPos, OutputVarX, OutputVarY			
-			SendInput, {Click %ClickX%, %ClickY%}			
-			Sleep, 10
-			SendRaw, %SendInputAct%
-			Sleep, 10
-			Send, {%SendKeysAct%}
-			Sleep, 10
-			MouseMove, OutputVarX, OutputVarY, 0
-			;;action end
-			Gosub, SquareOnLabel
+			if (ClickX != "" && ClickY != ""){
+				CancelSquare()
+				Sleep, DelayClick
+				MouseGetPos, OutputVarX, OutputVarY					
+				SendInput, {Click %ClickX%, %ClickY%}			
+				MouseMove, OutputVarX, OutputVarY, 0				
+				Gosub, SquareOnLabel
+			}
+			if(SendInputAct != ""){					
+				Sleep, DelayInput
+				SendRaw, %SendInputAct%
+			}
+			if(SendKeysAct != ""){					
+				Sleep, DelayKeys
+				Send, {%SendKeysAct%}
+			}
+			if(SendScript != ""){					
+				Sleep, DelayScript
+				Send, {%SendScript%}
+			}
+			;;action end			
 		}
 	}
 	

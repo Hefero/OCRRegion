@@ -69,13 +69,19 @@ GuiLayout:
 	Gui, OCRClicker:Add, Edit, x692 y182 w47 h20 vDelayScript, %DelayScript%
 	Gui, OCRClicker:Add, UpDown, vDelayScriptUpDwn Range1-10000000, 15
 
+	Gui, OCRClicker:Add, Text, x432 y49 w70 h20 +Left, Parameter
+	Gui, OCRClicker:Add, Text, x532 y49 w60 h20 +Left, Value
+	Gui, OCRClicker:Add, Text, x692 y49 w60 h20 +Left, Delay
+
 
 	Gui, OCRClicker:Show, w781 h341, OCRClicker
 	; Generated using SmartGUI Creator for SciTE
 return
 
 OCRRegionLabel:
-	OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY,SendInputAct,SendKeysAct)
+	OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY
+	,SendInputAct,SendKeysAct,SendScript
+	,DelayClick,DelayInput,DelayKeys,DelayScript)
 return
 
 DoStart:
@@ -84,7 +90,7 @@ DoStart:
 	GuiControl,, SquareOn, 1
 	Gosub, SquareOnLabel
 	Gosub, IniWriter
-	SetTimer, OCRRegionLabel, 500
+	SetTimer, OCRRegionLabel, 1500
 	GuiControl, +Default, Start
 return
 
