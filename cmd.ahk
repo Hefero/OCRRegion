@@ -1,141 +1,47 @@
 
-RunWaitOne(command) {
-    WshShell := ComObjCreate("WScript.Shell")
-    ; Execute a single command via cmd.exe
-	executeCommand := """" . command . """"
-    exec := WshShell.Run(ComSpec " /C " executeCommand, 0, true) ;silent
-	;exec := WshShell.Exec(ComSpec " /C " executeCommand) ;opens window but returns stdout
-    ; Read and return the command's output
-	;commandOutput := exec.StdOut.ReadAll()	
-    return ;commandOutput
-}
-
-RunWaitMany(commands) {
-    shell := ComObjCreate("WScript.Shell")
-    ; Open cmd.exe with echoing of commands disabled
-    exec := shell.Exec(ComSpec " /Q /K echo off")
-    ; Send the commands to execute, separated by newline
-    exec.StdIn.WriteLine(commands "`nexit")  ; Always exit at the end!
-    ; Read and return the output of all commands
-    return exec.StdOut.ReadAll()
-}
-
-ExecScript(Script, Wait:=true)
-{
-    shell := ComObjCreate("WScript.Shell")
-    exec := shell.Exec("AutoHotkey.exe /ErrorStdOut *")
-    exec.StdIn.Write(script)
-    exec.StdIn.Close()
-    if Wait
-        return exec.StdOut.ReadAll()
-}
-
-; ****************************************************************** 
-; CMDret-AHK functions 
-; version 1.10 beta 
-; 
-; Updated: Dec 5, 2006 
-; by: corrupt 
-; Code modifications and/or contributions made by: 
-; Laszlo, shimanov, toralf, Wdb  
-; ****************************************************************** 
-; Usage: 
-; CMDin - command to execute
-; WorkingDir - full path to working directory (Optional) 
-; ****************************************************************** 
-; Known Issues: 
-; - If using dir be sure to specify a path (example: cmd /c dir c:\)
-; or specify a working directory    
-; - Running 16 bit console applications may not produce output. Use 
-; a 32 bit application to start the 16 bit process to receive output  
-; ****************************************************************** 
-; Additional requirements: 
-; - none 
-; ****************************************************************** 
-; Code Start 
-; ****************************************************************** 
-
-CMDret_RunReturn(CMDin, WorkingDir=0) 
-{ 
-  Global cmdretPID
-  tcWrk := WorkingDir=0 ? "Int" : "Str"
-  idltm := A_TickCount + 20 
-  CMsize = 1 
-  VarSetCapacity(CMDout, 1, 32) 
-  VarSetCapacity(sui,68, 0) 
-  VarSetCapacity(pi, 16, 0) 
-  VarSetCapacity(pa, 12, 0) 
-  Loop, 4 { 
-    DllCall("RtlFillMemory", UInt,&pa+A_Index-1, UInt,1, UChar,12 >> 8*A_Index-8) 
-    DllCall("RtlFillMemory", UInt,&pa+8+A_Index-1, UInt,1, UChar,1 >> 8*A_Index-8) 
-  } 
-  IF (DllCall("CreatePipe", "UInt*",hRead, "UInt*",hWrite, "UInt",&pa, "Int",0) <> 0) { 
-    Loop, 4 
-      DllCall("RtlFillMemory", UInt,&sui+A_Index-1, UInt,1, UChar,68 >> 8*A_Index-8) 
-    DllCall("GetStartupInfo", "UInt", &sui) 
-    Loop, 4 { 
-      DllCall("RtlFillMemory", UInt,&sui+44+A_Index-1, UInt,1, UChar,257 >> 8*A_Index-8) 
-      DllCall("RtlFillMemory", UInt,&sui+60+A_Index-1, UInt,1, UChar,hWrite >> 8*A_Index-8) 
-      DllCall("RtlFillMemory", UInt,&sui+64+A_Index-1, UInt,1, UChar,hWrite >> 8*A_Index-8) 
-      DllCall("RtlFillMemory", UInt,&sui+48+A_Index-1, UInt,1, UChar,0 >> 8*A_Index-8) 
-    }
-    IF (DllCall("CreateProcess", Int,0, Str,CMDin, Int,0, Int,0, Int,1, "UInt",0, Int,0, tcWrk, WorkingDir, UInt,&sui, UInt,&pi) <> 0) {
-      Loop, 4 
-        cmdretPID += *(&pi+8+A_Index-1) << 8*A_Index-8 
-      Loop { 
-        idltm2 := A_TickCount - idltm 
-        If (idltm2 < 10) { 
-          DllCall("Sleep", Int, 10) 
-          Continue 
-        } 
-        IF (DllCall("PeekNamedPipe", "uint", hRead, "uint", 0, "uint", 0, "uint", 0, "uint*", bSize, "uint", 0 ) <> 0 ) { 
-          Process, Exist, %cmdretPID% 
-          IF (ErrorLevel OR bSize > 0) { 
-            IF (bSize > 0) { 
-              VarSetCapacity(lpBuffer, bSize+1) 
-              IF (DllCall("ReadFile", "UInt",hRead, "Str", lpBuffer, "Int",bSize, "UInt*",bRead, "Int",0) > 0) { 
-                IF (bRead > 0) { 
-                  TRead += bRead 
-                  VarSetCapacity(CMcpy, (bRead+CMsize+1), 0) 
-                  CMcpy = a 
-                  DllCall("RtlMoveMemory", "UInt", &CMcpy, "UInt", &CMDout, "Int", CMsize) 
-                  DllCall("RtlMoveMemory", "UInt", &CMcpy+CMsize, "UInt", &lpBuffer, "Int", bRead) 
-                  CMsize += bRead 
-                  VarSetCapacity(CMDout, (CMsize + 1), 0) 
-                  CMDout=a    
-                  DllCall("RtlMoveMemory", "UInt", &CMDout, "UInt", &CMcpy, "Int", CMsize) 
-                  VarSetCapacity(CMDout, -1)   ; fix required by change in autohotkey v1.0.44.14 
-                } 
-              } 
-            } 
-          } 
-          ELSE 
-            break 
-        } 
-        ELSE 
-          break 
-        idltm := A_TickCount 
-      } 
-      cmdretPID= 
-      DllCall("CloseHandle", UInt, hWrite) 
-      DllCall("CloseHandle", UInt, hRead) 
-    }
-  } 
-  IF (StrLen(CMDout) < TRead) { 
-    VarSetCapacity(CMcpy, TRead, 32) 
-    TRead2 = %TRead% 
-    Loop { 
-      DllCall("RtlZeroMemory", "UInt", &CMcpy, Int, TRead) 
-      NULLptr := StrLen(CMDout) 
-      cpsize := Tread - NULLptr 
-      DllCall("RtlMoveMemory", "UInt", &CMcpy, "UInt", (&CMDout + NULLptr + 2), "Int", (cpsize - 1)) 
-      DllCall("RtlZeroMemory", "UInt", (&CMDout + NULLptr), Int, cpsize) 
-      DllCall("RtlMoveMemory", "UInt", (&CMDout + NULLptr), "UInt", &CMcpy, "Int", cpsize) 
-      TRead2 -- 
-      IF (StrLen(CMDout) > TRead2) 
-        break 
-    } 
-  } 
-  StringTrimLeft, CMDout, CMDout, 1 
-  Return, CMDout 
-} 
+RunCMD(CmdLine, WorkingDir:="", Codepage:="CP0", Fn:="RunCMD_Output") {  ;         RunCMD v0.94        
+  Local         ; RunCMD v0.94 by SKAN on D34E/D37C @ autohotkey.com/boards/viewtopic.php?t=74647                                                             
+  Global A_Args ; Based on StdOutToVar.ahk by Sean @ autohotkey.com/board/topic/15455-stdouttovar
+  
+    Fn := IsFunc(Fn) ? Func(Fn) : 0
+  , DllCall("CreatePipe", "PtrP",hPipeR:=0, "PtrP",hPipeW:=0, "Ptr",0, "Int",0)
+  , DllCall("SetHandleInformation", "Ptr",hPipeW, "Int",1, "Int",1)
+  , DllCall("SetNamedPipeHandleState","Ptr",hPipeR, "UIntP",PIPE_NOWAIT:=1, "Ptr",0, "Ptr",0)
+  
+  , P8 := (A_PtrSize=8)
+  , VarSetCapacity(SI, P8 ? 104 : 68, 0)                          ; STARTUPINFO structure      
+  , NumPut(P8 ? 104 : 68, SI)                                     ; size of STARTUPINFO
+  , NumPut(STARTF_USESTDHANDLES:=0x100, SI, P8 ? 60 : 44,"UInt")  ; dwFlags
+  , NumPut(hPipeW, SI, P8 ? 88 : 60)                              ; hStdOutput
+  , NumPut(hPipeW, SI, P8 ? 96 : 64)                              ; hStdError
+  , VarSetCapacity(PI, P8 ? 24 : 16)                              ; PROCESS_INFORMATION structure
+  
+    If not DllCall("CreateProcess", "Ptr",0, "Str",CmdLine, "Ptr",0, "Int",0, "Int",True
+                  ,"Int",0x08000000 | DllCall("GetPriorityClass", "Ptr",-1, "UInt"), "Int",0
+                  ,"Ptr",WorkingDir ? &WorkingDir : 0, "Ptr",&SI, "Ptr",&PI)  
+       Return Format("{1:}", "", ErrorLevel := -1
+                     ,DllCall("CloseHandle", "Ptr",hPipeW), DllCall("CloseHandle", "Ptr",hPipeR))
+  
+    DllCall("CloseHandle", "Ptr",hPipeW)
+  , A_Args.RunCMD := { "PID": NumGet(PI, P8? 16 : 8, "UInt") }      
+  , File := FileOpen(hPipeR, "h", Codepage)
+  
+  , LineNum := 1,  sOutput := ""
+    While (A_Args.RunCMD.PID + DllCall("Sleep", "Int",0))
+      and DllCall("PeekNamedPipe", "Ptr",hPipeR, "Ptr",0, "Int",0, "Ptr",0, "Ptr",0, "Ptr",0)
+          While A_Args.RunCMD.PID and (Line := File.ReadLine())
+            sOutput .= Fn ? Fn.Call(Line, LineNum++) : Line
+  
+    A_Args.RunCMD.PID := 0
+  , hProcess := NumGet(PI, 0)
+  , hThread  := NumGet(PI, A_PtrSize)
+  
+  , DllCall("GetExitCodeProcess", "Ptr",hProcess, "PtrP",ExitCode:=0)
+  , DllCall("CloseHandle", "Ptr",hProcess)
+  , DllCall("CloseHandle", "Ptr",hThread)
+  , DllCall("CloseHandle", "Ptr",hPipeR)
+  
+  , ErrorLevel := ExitCode
+  
+  Return sOutput  
+  }

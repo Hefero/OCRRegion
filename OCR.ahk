@@ -17,8 +17,6 @@ OCR(x,y,w,h)
 	CLIpath := """" . A_ScriptDir . "\Capture2Text\Capture2Text_CLI.exe" . """"
 	CLIappend := " -o lastread.txt --screen-rect " . """"  CoordsForm """"
 	CLIcommand :=  CLIpath . CLIappend
-	StringReturn := RunWaitOne(CLIcommand)
-	Sleep, 500
-	FileReadLine, OutputVar, lastread.txt, 1
-	return OutputVar
+	StringReturn := RunCMD(CLIcommand)
+	return StringReturn
 }
