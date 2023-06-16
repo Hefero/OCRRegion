@@ -1,4 +1,4 @@
-
+#include cursor.ahk
 
 DrawSquare(X,Y,Width,Height)
 {
@@ -18,6 +18,7 @@ CancelSquare()
 
 DoDrawFunction(){
 	DisplayInvisibleFullRect()
+	ReplaceSystemCursor("IDC_ARROW", "IDC_CROSS")
 	Loop{
 		GetKeyState, MousePressed, LButton
 		Gosub, UpdateMouseXYIndicator
@@ -64,6 +65,7 @@ DoDrawFunction(){
 					GuiControl,, Width, %CurrWidth%
 					GuiControl,, Height, %CurrHeight%					
 					Gui, SquareFullRect:Cancel
+					ReplaceSystemCursor()
 					return
 				}					
 			}
