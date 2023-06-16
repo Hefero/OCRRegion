@@ -89,6 +89,9 @@ OCRRegionLabel:
 return
 
 DoStart:
+	file := FileOpen("sendscript.ahk", "w")
+	file.Write(SendScript)
+	file.Close()
 	Gui, OCRClicker:Default	
 	GuiControl,, OCRRead, Started
 	GuiControl,, SquareOn, 1

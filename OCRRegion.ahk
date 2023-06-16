@@ -36,7 +36,7 @@ OCRRegionFunction(X,Y,Width,Height,TextRead,ClickX,ClickY
 			}
 			if(SendScript != ""){					
 				Sleep, DelayScript
-				RunWait, {%SendScript%}
+				RunWait, %A_ScriptDir%\sendscript.ahk
 			}
 			;;action end			
 		}
