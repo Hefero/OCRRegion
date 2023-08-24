@@ -14,7 +14,7 @@ OCR(x,y,w,h)
 {
 	;OCR Reader
 	CoordsForm := x . " " . y . " " . x+w . " " . y+h		
-	CLIpath := """" . A_ScriptDir . "\Capture2Text\bin\Capture2Text_CLI.exe" . """"
+	CLIpath := """" . A_ScriptDir . "\Capture2Text\binaries\Capture2Text_CLI.exe" . """"
 	CLIappend := " --clipboard -o lastread.txt --screen-rect " . """"  CoordsForm """"
 	CLIcommand :=  CLIpath . CLIappend
 	StringReturn := RunCMD(CLIcommand)
